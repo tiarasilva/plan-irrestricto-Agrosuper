@@ -1,0 +1,31 @@
+#--------------------------- COMANDOS ----------------------------#
+
+wb = load_workbook('Plan_Septiembre_Precios.xlsx')
+ws = wb.active                              # Me entrega la hoja que esta activa en el excel
+print(wb.sheetnames)                        # Imprime los nombres de las
+ws['A4']                                    # Me entrega la celda
+ws['A4'].value                              # Entrega el valor de la celda A4
+ws = wb['Hoja2']                            # Acceso a un sheet
+
+### PARA CAMBIAR EL VALOR:
+ws['A5'] = 'Agro X'
+
+### CREAR SHEET
+wb.create_sheet('Test')
+
+### MEZCLAR CELDAS
+ws.merge_cells("A1:D1")
+ws.merge_cells("A1:D2")
+ws.unmerge_cells("A1:D1")                   # Perdemos la data que estaba en las celdas antes de mergear
+
+### INSERTAR y BORRAR FILA VACIA
+ws.insert_rows(7)
+ws.delete_rows(7)
+
+### INSERTAR y BORRAR COLUMNA VACIA
+ws.insert_cols(2)                           # 2 = Columna B
+ws.delete_cols(7)
+
+## MOVER COLUMNAS
+ws.move_range("C1:D11", rows=-1, cols=2)    # -1 = sube una y muevete dos a la derecha
+ws.move_range("C1:D11", rows=2)             # 2 = baja dos
