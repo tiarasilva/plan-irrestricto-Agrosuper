@@ -172,19 +172,27 @@ plan_irrestricto = load_workbook(filename)
 ws_irrestricto = plan_irrestricto.active
 max_row = ws_irrestricto.max_row
 
-venta = asignacion['Venta']
-max_rows_venta = venta.max_row
+venta = asignacion['RV plan de ventas']
 dict_venta_n1 = {}
 dict_venta_no_asignadas = {}
 
-for row in range(2, max_rows_venta + 1):
-  llave = venta.cell(row = row, column = 1).value
-  oficina = venta.cell(row = row, column = 2).value
-  sku = venta.cell(row = row, column = 3).value
-  descripcion = venta.cell(row = row, column = 4).value
-  venta_mes = venta.cell(row = row, column = 5).value
-  dict_venta_n1[llave.lower()] = venta_mes
-  dict_venta_no_asignadas[llave.lower()] = {'oficina': oficina, 'sku': sku, 'descripcion': descripcion, 'venta': venta_mes}
+for row in venta.iter_rows(min_row = 7, max_row = venta.max_row, values_only=True):
+  key = row[0].lower()
+  office = row[1]
+  sku = row[2]
+  description = row[3]
+  monthly_sales = row[4]
+  dict_venta_n1[key] = monthly_sales
+  dict_venta_no_asignadas[key] = {'office': office, 'sku': sku, 'description': description, 'monthly_sales': monthly_sales}
+
+# for row in range(2, venta.max_row + 1):
+#   llave = venta.cell(row = row, column = 1).value
+#   oficina = venta.cell(row = row, column = 2).value
+#   sku = venta.cell(row = row, column = 3).value
+#   descripcion = venta.cell(row = row, column = 4).value
+#   venta_mes = venta.cell(row = row, column = 5).value
+#   dict_venta_n1[llave.lower()] = venta_mes
+#   dict_venta_no_asignadas[llave.lower()] = {'oficina': oficina, 'sku': sku, 'descripcion': descripcion, 'venta': venta_mes}
 
 for i, row in enumerate(ws_irrestricto.iter_rows(min_row = 2, max_row = max_row, values_only=True), start = 2):
   llave_actual = row[0]
@@ -218,7 +226,8 @@ util_dicc = {}
 
 wb_stock = load_workbook(filename_stock, data_only=True, read_only=True)
 ws_stock = wb_stock['TD Stock']
-max_row_stock = ws_stock.max_row
+ws_delay = wb_stock['DELAY']
+dict_delay = {}
 dict_stock = {}
 
 por_producir = load_workbook(filename_por_producir, data_only=True, read_only=True)
@@ -233,21 +242,18 @@ ws_por_despachar = por_despachar.active
 max_row_por_despachar = ws_por_despachar.max_row
 dict_por_despachar = {}
 
-wb_delay = load_workbook(filename_delay, data_only=True, read_only=True)
-ws_delay = wb_delay.active
-max_row_delay = ws_delay.max_row
-dict_delay = {}
+# wb_delay = load_workbook(filename_delay, data_only=True, read_only=True)
+# ws_delay = wb_delay.active
+# dict_delay = {}
 
 wb_vol_cont = load_workbook(filename_vol_cont, data_only=True, read_only=True)
 ws_contenedor = wb_vol_cont.active
-max_row_cont = ws_contenedor.max_row
 dict_vol_cont = {}
 
 dict_datos_modificados = {}
 
 wb_puerto = load_workbook(filename = filename_puerto, data_only=True, read_only=True)
 ws_puerto = wb_puerto['Material']
-max_row_puerto = ws_puerto.max_row
 dict_puerto = {}
 
 # % Util. produccion
@@ -258,11 +264,22 @@ for row in ws_util.iter_rows(min_row = 2, max_row = max_row_util, values_only=Tr
 util_prod.close()
   
 # Stock
-for row in ws_stock.iter_rows(min_row = 2, max_row = max_row_stock, values_only=True):
-  llave = row[0].lower()
+#for row in ws_stock.iter_rows(min_row = 2, max_row = max_row_stock, values_only=True):
+#  llave = row[0].lower()
+#  stock = row[3]
+#  dict_stock[llave] = stock
+#wb_stock.close()
+
+for row in ws_stock.iter_rows(min_row = 5, max_row = ws_stock.max_row - 1, values_only=True):
+  sku = str(row[11])
+  if "Total" in sku:
+    break
+  oficina = row[12].lower()
+  llave = oficina + sku
   stock = row[3]
   dict_stock[llave] = stock
-wb_stock.close()
+# wb_stock.close()
+
 
 # Por producir mes N
 for row in ws_por_producir.iter_rows(min_row = 2, max_row = max_row_por_producir, values_only=True):
@@ -281,21 +298,31 @@ for row in ws_por_despachar.iter_rows(min_row = 2, max_row = max_row_por_despach
 por_despachar.close()
 
 # Delay 
-for row in ws_delay.iter_rows(min_row = 2, max_row = max_row_delay, values_only=True):
+# for row in ws_delay.iter_rows(min_row = 2, max_row = ws_delay.max_row, values_only=True):
+#   llave = row[0].lower()
+#   delay = row[3]
+#   dict_delay[llave] = delay
+# wb_delay.close()
+
+for row in ws_delay.iter_rows(min_row = 15, max_row = ws_delay.max_row, values_only=True):
+  if row[0] is None:
+    break
   llave = row[0].lower()
   delay = row[3]
   dict_delay[llave] = delay
-wb_delay.close()
+wb_stock.close()
 
 # Vol. prom. Por contenedor
-for row in ws_contenedor.iter_rows(min_row = 2, max_row = max_row_cont, values_only=True):
+for row in ws_contenedor.iter_rows(min_row = 2, max_row = ws_contenedor.max_row, values_only=True):
+  if row[0] is None:
+    break
   llave = row[0].lower()
   volumen = row[3]
   dict_vol_cont[llave] = volumen
 wb_vol_cont.close()
 
 # En puerto a facturar
-for row in ws_puerto.iter_rows(min_row = 2, max_row = max_row_puerto, values_only=True):
+for row in ws_puerto.iter_rows(min_row = 2, max_row = ws_puerto.max_row, values_only=True):
   llave = row[0].lower()
   puerto_total = row[2]
   dict_puerto[llave] = puerto_total
