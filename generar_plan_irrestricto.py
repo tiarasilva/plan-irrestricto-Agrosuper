@@ -502,7 +502,7 @@ instructions.configure(font=("bold", 18))
 instructions.grid(column = 1, row = 1)
 
 # Description
-messageboxText = "En las siguientes columnas no se encontró la información en los excel de Colaboraciones. Estos fueron rellanaron con los siguientes datos: Para el volumen de contenedor promedio fue con 24.000 ton, para el porcentaje de utilización con un 35%. Están coloreadas rojo para mayor visualización"
+messageboxText = "En las siguientes columnas no se encontró la información en los excel de Colaboraciones. Estos fueron rellanaron con los siguientes datos: Para el volumen de contenedor promedio fue con 24.000 ton, para el porcentaje de utilización con un 35%. \n\n*En el excel fueron marcadas con rojo para mayor detalle"
 text = Text(app, bg = '#ffffff', bd = 0, borderwidth=0, highlightthickness=0, height=5, width=70, padx = 15, pady = 5)
 text.insert(INSERT, messageboxText)
 text.config(state=DISABLED, font="Calibrí")
