@@ -15,6 +15,7 @@ filename_stock = 'Colaboraciones plan de ventas/Stock.xlsx'
 filename_por_producir = 'Colaboraciones plan de ventas/Por producir mes N.xlsx'
 filename_vol_cont = 'Colaboraciones plan de ventas/Volumen por contendor - Distribución Inter..xlsx'
 filename_puerto = 'Colaboraciones plan de ventas/Puerto.xlsx'
+filename_maestro_materiales = 'Colaboraciones plan de ventas/Maestro de materiales.xlsx'
 
 PO = 'Pollo'
 PV = 'Pavo'
@@ -53,7 +54,7 @@ tamano = {
   'Ajuste stock sin venta': 14,
   'Facturación stock': 14,
   'En puerto a facturar': 14,
-  'Plan Irrestricto (DATO)': 14,
+  'Plan Irrestricto': 14,
   'Plan Ajustado': 14,
   'Motivo Ajuste': 25
 }

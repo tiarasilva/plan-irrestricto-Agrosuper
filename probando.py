@@ -3,6 +3,7 @@ from openpyxl.utils import get_column_letter
 from openpyxl.styles import Font, PatternFill
 from openpyxl.styles.numbers import FORMAT_PERCENTAGE, BUILTIN_FORMATS
 from constants import *
+from tkinter import *
 import time
 start_time = time.time()
 
@@ -44,7 +45,7 @@ ws.append(['Llave',
            'Ajuste stock sin venta',
            'Facturación stock',
            'En puerto a facturar',
-           'Plan Irrestricto (DATO)',
+           'Plan Irrestricto',
            'Plan Ajustado',
            'Motivo Ajuste'
            ])
@@ -78,6 +79,8 @@ for colu in range(8, 32):
 
 col = ws.column_dimensions['K']
 col.number_format = BUILTIN_FORMATS[3]
+
+
 # 3. Agregamos la data
 
   ## ASIGNACIONES: Llave, Oficina, Material (=SKU), Descripción,  RV Producción mes n+1 (=kilos) 
@@ -87,6 +90,31 @@ produccion = asignacion['Producción']
 max_rows_produccion = produccion.max_row
 max_row_new = ws.max_row
 max_rows = max_row_new
+dict_produccion_inicial = {}
+
+wb_maestro_materiales = load_workbook(filename_maestro_materiales, data_only=True, read_only=True)
+ws_maestro_materiales = wb_maestro_materiales.active
+max_maestro = ws_maestro_materiales.max_row
+dict_materiales = {}
+
+for row in ws_maestro_materiales.iter_rows(min_row = 2, max_row = max_maestro, values_only=True):
+  material = row[1]
+  descripcion = row[2]
+  sector = row[3]
+  nivel_2 = row[4]
+  nivel_3 = row[5]
+  estado = row[6]
+  mercado = row[7]
+  vida_util = row[8]
+  dict_materiales[material] = {'descripcion': descripcion, 
+                               'sector': sector,
+                               'nivel_2': nivel_2, 
+                               'nivel_3': nivel_3, 
+                               'estado': estado,
+                               'mercado': mercado,
+                               'vida_util': vida_util
+                               }
+wb_maestro_materiales.close()
 
 ## Llave, Oficina, Sku, Descripción, RV producción mes n+1
 for row in range(2, max_rows_produccion + 1):
@@ -95,11 +123,18 @@ for row in range(2, max_rows_produccion + 1):
   sku = produccion.cell(row = row, column = 3).value
   descripcion = produccion.cell(row = row, column = 4).value
   prd_mes = produccion.cell(row = row, column = 5).value
+  dict_produccion_inicial[llave.lower()] = prd_mes
   ws.cell(row = row, column = 1).value = llave
   ws.cell(row = row, column = 3).value = oficina
   ws.cell(row = row, column = 4).value = sku
-  ws.cell(row = row, column = 5).value = descripcion
   ws.cell(row = row, column = 8).value = prd_mes
+  
+  # Del plan maestro
+  material = str(sku)
+  ws.cell(row = row, column = 2).value = dict_materiales[material]['sector']
+  ws.cell(row = row, column = 5).value = dict_materiales[material]['descripcion']
+  ws.cell(row = row, column = 6).value = dict_materiales[material]['nivel_2']
+  ws.cell(row = row, column = 7).value = dict_materiales[material]['nivel_3']
 
   # Colores rojo ajustes
   ws[f'S{row}'].font = Font(bold=True, color=red)
@@ -136,20 +171,42 @@ max_row = ws_irrestricto.max_row
 venta = asignacion['Venta']
 max_rows_venta = venta.max_row
 dict_venta_n1 = {}
+dict_venta_no_asignadas = {}
 
 for row in range(2, max_rows_venta + 1):
   llave = venta.cell(row = row, column = 1).value
+  oficina = venta.cell(row = row, column = 2).value
+  sku = venta.cell(row = row, column = 3).value
+  descripcion = venta.cell(row = row, column = 4).value
   venta_mes = venta.cell(row = row, column = 5).value
   dict_venta_n1[llave.lower()] = venta_mes
+  dict_venta_no_asignadas[llave.lower()] = {'oficina': oficina, 'sku': sku, 'descripcion': descripcion, 'venta': venta_mes}
 
-for search_row in range(2, max_row + 1):
-    llave_actual = ws_irrestricto.cell(row = search_row, column = 1).value.lower()
+for i, row in enumerate(ws_irrestricto.iter_rows(min_row = 2, max_row = max_row, values_only=True), start = 2):
+  llave_actual = row[0]
 
-    if llave_actual in dict_venta_n1:
-      ws_irrestricto.cell(row = search_row, column = 9).value = dict_venta_n1[llave_actual]
+  if llave_actual.lower() in dict_venta_n1:
+    dict_venta_no_asignadas.pop(llave_actual.lower(), None)
+    ws_irrestricto.cell(row = i, column = 9).value = venta_mes
   
-    else:
-      ws_irrestricto.cell(row = search_row, column = 9).value = 0 
+  else:
+    ws_irrestricto.cell(row = i, column = 9).value = 0
+
+for key, value in dict_venta_no_asignadas.items():
+  ws_irrestricto.cell(row = i, column = 1).value = key
+  ws_irrestricto.cell(row = i, column = 3).value = value['oficina']
+  ws_irrestricto.cell(row = i, column = 4).value = value['sku']
+  ws_irrestricto.cell(row = i, column = 5).value = value['descripcion']
+  ws_irrestricto.cell(row = i, column = 9).value = value['venta']
+
+# for search_row in range(2, max_row + 1):
+#     llave_actual = ws_irrestricto.cell(row = search_row, column = 1).value.lower()
+
+#     if llave_actual in dict_venta_n1:
+#       ws_irrestricto.cell(row = search_row, column = 9).value = dict_venta_n1[llave_actual]
+  
+#     else:
+#       ws_irrestricto.cell(row = search_row, column = 9).value = 0 
 
 plan_irrestricto.save(filename)
 
@@ -193,12 +250,11 @@ dict_vol_cont = {}
 
 
 print("--- %s ANTES0 ---" % (time.time() - start_time))
-wb_puerto = load_workbook(filename_puerto, data_only=True, read_only=True)
-ws_puerto = wb_puerto.active
+wb_puerto = load_workbook(filename = filename_puerto, data_only=True, read_only=True)
+print("--- %s ANTES1 ---" % (time.time() - start_time))
+ws_puerto = wb_puerto['Material']
 max_row_puerto = ws_puerto.max_row
 dict_puerto = {}
-
-print("--- %s ANTES1 ---" % (time.time() - start_time))
 
 # % Util. produccion
 for row in ws_util.iter_rows(min_row = 2, max_row = max_row_util, values_only=True):
@@ -394,32 +450,30 @@ for i, row in enumerate(ws_irrestricto.iter_rows(min_row = 2, max_row = max_row,
   # print('\n', i, row[0], delay, saldo_disp, vol_contenedor, venta_mes_n1, total_disp)
   # print(saldo_disp)
   disponible_sin_venta = 0
-  print(f'\n {i} {row[0]}: delay {delay} saldodisp {saldo_disp} vol {vol_contenedor} venta {venta_mes_n1} total {total_disp}')
+  #print(f'\n {i} {row[0]}: delay {delay} saldodisp {saldo_disp} vol {vol_contenedor} venta {venta_mes_n1} total {total_disp}')
   if saldo_disp > vol_contenedor and saldo_disp > venta_mes_n1 and delay < total_disp:
     cant_disp = int((saldo_disp + ajuste_venta_nueva) / vol_contenedor)
     disponible_sin_venta = cant_disp * vol_contenedor
+    print('1. : ', disponible_sin_venta)
     ws_irrestricto.cell(row = i, column = 26).value = disponible_sin_venta
 
   # Facturación stock
   ajuste_sin_venta = row[26] or 0                                   # Columna AA
   disponible_sin_venta = disponible_sin_venta or 0
+  oficina = row[2]
+  puerto_a_facturar = row[28] or 0
   # print(ajuste_sin_venta, disponible_sin_venta)
   if disponible_sin_venta > 0:
     d_sin_venta = disponible_sin_venta + ajuste_sin_venta
+    print('2. disponible_sin_venta > 0: ', disponible_sin_venta, ajuste_venta_nueva)
     ws_irrestricto.cell(row = i, column = 28).value = f'=Z{i}+AA{i}'
 
   # Plan Irrestricto Inicial
-  oficina = row[2]
-  puerto_a_facturar = row[28] or 0
-  if oficina == oficina_plan_irrestricto and delay > 0:
-    ws_irrestricto.cell(row = i, column = 29).value = atraso_a_facturar
-  
-  elif oficina == oficina_plan_irrestricto and delay == 0:
-    ws_irrestricto.cell(row = i, column = 29).value = puerto_a_facturar
-
+  print('total_disp: ', total_disp)
   elif total_disp > 0:
     plan = atraso_a_facturar + venta_mes + disponible_sin_venta + puerto_a_facturar
-    ws_irrestricto.cell(row = i, column = 29).value = plan
+    print('3. total_disp > 0: ', plan)
+    ws_irrestricto.cell(row = i, column = 30).value = plan
 
   # FORMATOS
   ws_irrestricto[f'T{i}'].number_format = BUILTIN_FORMATS[3]
@@ -439,3 +493,14 @@ for i, row in enumerate(ws_irrestricto.iter_rows(min_row = 2, max_row = max_row,
 plan_irrestricto.save(filename)
 plan_irrestricto.close()
 print("--- %s seconds ---" % (time.time() - start_time))
+#--------------------- Message Box ----------------------# 
+app = Tk()
+app.title('Alerta falta de datos')
+
+part_text = StringVar()
+label = Label(app, text="En las siguientes columnas no se encontró la información y se rellanaron con datos. Están coloreadas rojo para mayor visualización", pady=20)
+label.grid(row = 0, column = 0)
+
+app.geometry('700x300')
+app.mainloop()
+# messagebox.showinfo(title = "Titulo Alerta", "En las siguientes columnas no se encontró la información y se rellanaron con datos. Están coloreadas rojo para mayor visualización")
