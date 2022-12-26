@@ -6,16 +6,20 @@ blue = '22305a'
 white = 'ffffff'
 red = 'FF0000'
 
+seleccion_tipo_venta = "Venta Directa" # Venta Directa o Venta Local
+
 filename = 'Plan irrestricto.xlsx'
-filename_asignacion = 'Colaboraciones plan de ventas/Asignación (venta - producción).xlsx'
+filename_asignacion = 'Colaboraciones plan de ventas/Asignación venta.xlsx'
 filename_util = 'Colaboraciones plan de ventas/Fechas de zarpe - Logística.xlsx'
 filename_delay = 'Colaboraciones plan de ventas/DELAY.xlsx'
-filename_por_despachar = 'Colaboraciones plan de ventas/Pedidos por despachar.xlsx'
+# filename_por_despachar = 'Colaboraciones plan de ventas/Pedidos por despachar.xlsx'
+filename_por_despachar = 'Colaboraciones plan de ventas/Proyeccion Plan de Venta.xlsx'
 filename_stock = 'Colaboraciones plan de ventas/Pedidos Stock.xlsx'
-filename_por_producir = 'Colaboraciones plan de ventas/Por producir mes N.xlsx'
-filename_vol_cont = 'Colaboraciones plan de ventas/Volumen por contendor.xlsx'
-filename_puerto = 'Colaboraciones plan de ventas/Puerto.xlsx'
+filename_por_producir = 'Colaboraciones plan de ventas/Producción.xlsx'
+filename_vol_cont = 'Colaboraciones plan de ventas/Volumen por contenedor.xlsx'
+filename_puerto = 'Colaboraciones plan de ventas/Pedidos Planta-Puerto-Embarcado.xlsx'
 filename_maestro_materiales = 'Colaboraciones plan de ventas/Maestro de materiales.xlsx'
+filename_parametros = 'Colaboraciones plan de ventas/parametros.xlsx'
 
 PO = 'Pollo'
 PV = 'Pavo'
@@ -27,11 +31,11 @@ oficina_plan_irrestricto = 'Agrosuper Shanghai'
 tamano = {
   'Llave': 23,
   'Sector': 8,                   
-  'Oficina': 15,             
+  'Oficina': 16,             
   'Material': 9,
-  'Descripción': 25,
-  'Nivel Jer. 2': 10,
-  'Nivel Jer. 3': 10,
+  'Descripción': 27,
+  'Nivel Jer. 2': 15,
+  'Nivel Jer. 3': 17,
   'RV Producción mes n+1': 14,
   'RV Venta mes n+1': 14,
   '% Uti. producción': 7,
@@ -56,5 +60,5 @@ tamano = {
   'En puerto a facturar': 14,
   'Plan Irrestricto': 14,
   'Plan Ajustado': 14,
-  'Motivo Ajuste': 25
+  'Motivo Ajuste': 30
 }
