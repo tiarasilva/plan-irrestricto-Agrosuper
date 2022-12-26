@@ -23,9 +23,9 @@ def messageBox(dict_datos_modificados, dict_otro_tipo):
 
   # Description
   messageboxText = "En las siguientes columnas no se encontró la información en los excel de Colaboraciones. Estos fueron rellanaron con los siguientes datos: Para el volumen de contenedor promedio fue con 24.000 ton, para el porcentaje de utilización con un 35%. \n\n*En el excel fueron marcadas con rojo para mayor detalle"
-  text = Text(app, bg = '#ffffff', bd = 0, borderwidth=0, highlightthickness=0, height=5, width=70, padx = 15, pady = 5, font = ('Calibri Light', 12))
+  text = Text(app, bg = '#ffffff', bd = 0, borderwidth=0, highlightthickness=0, height=5, width=70, padx = 15, pady = 5)
   text.insert(INSERT, messageboxText)
-  text.config(state=DISABLED, font="Calibrí")
+  text.config(state=DISABLED, font=("Calibrí", 12))
   text.grid(column = 0, row = 2, columnspan = 12)
 
   # Table
