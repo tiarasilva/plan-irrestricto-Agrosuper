@@ -23,13 +23,13 @@ def messageBox(dict_datos_modificados, dict_otro_tipo):
 
   # Description
   messageboxText = "En las siguientes columnas no se encontró la información en los excel de Colaboraciones. Estos fueron rellanaron con los siguientes datos: Para el volumen de contenedor promedio fue con 24.000 ton, para el porcentaje de utilización con un 35%. \n\n*En el excel fueron marcadas con rojo para mayor detalle"
-  text = Text(app, bg = '#ffffff', bd = 0, borderwidth=0, highlightthickness=0, height=5, width=70, padx = 15, pady = 5)
+  text = Text(app, bg = '#ffffff', bd = 0, borderwidth=0, highlightthickness=0, height=5, width=70, padx = 15, pady = 5, font = ('Calibri Light', 12))
   text.insert(INSERT, messageboxText)
   text.config(state=DISABLED, font="Calibrí")
   text.grid(column = 0, row = 2, columnspan = 12)
 
   # Table
-  tree = ttk.Treeview(app, columns=(1, 2, 3, 4, 5), show="headings", height="8", padding = (20, 20, 20, 20))
+  tree = ttk.Treeview(app, columns=(1, 2, 3, 4, 5), show="headings", height="8", padding = (10, 10, 10, 10))
   # vsb = Scrollbar(app, orient="vertical", command=tree.yview)
   # vsb.place(x=30+200+2, y=95, height=200+20)
   # tree.configure(yscrollcommand=vsb.set)
