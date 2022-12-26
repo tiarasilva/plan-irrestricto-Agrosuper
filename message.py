@@ -10,7 +10,7 @@ def messageBox(dict_datos_modificados, dict_otro_tipo):
 
   # Info Image
   information_image = Image.open("Notice.png")
-  information_image = information_image.resize((60, 60))
+  information_image = information_image.resize((50, 50))
   information_image = ImageTk.PhotoImage(information_image)
   logo_label = tk.Label(image = information_image, borderwidth=0, bg = 'white')
   logo_label.image = information_image
@@ -18,7 +18,7 @@ def messageBox(dict_datos_modificados, dict_otro_tipo):
 
   # Instrucciones
   instructions = tk.Label(app, text = "Alerta falta de información", bg="white", justify=LEFT)
-  instructions.configure(font=("bold", 18))
+  instructions.configure(font=("bold", 16))
   instructions.grid(column = 1, row = 1)
 
   # Description
@@ -29,7 +29,7 @@ def messageBox(dict_datos_modificados, dict_otro_tipo):
   text.grid(column = 0, row = 2, columnspan = 12)
 
   # Table
-  tree = ttk.Treeview(app, columns=(1, 2, 3, 4, 5), show="headings", height="10", padding = (20, 20, 20, 20))
+  tree = ttk.Treeview(app, columns=(1, 2, 3, 4, 5), show="headings", height="8", padding = (20, 20, 20, 20))
   # vsb = Scrollbar(app, orient="vertical", command=tree.yview)
   # vsb.place(x=30+200+2, y=95, height=200+20)
   # tree.configure(yscrollcommand=vsb.set)
@@ -58,7 +58,7 @@ def messageBox(dict_datos_modificados, dict_otro_tipo):
   text.config(state=DISABLED, font="Calibrí")
   text.grid(column = 0, row = 4, columnspan = 12)
 
-  tree_otra_tipo_venta = ttk.Treeview(app, columns=(1, 2, 3, 4), show="headings", height="10", padding=(10, 10, 10, 10))
+  tree_otra_tipo_venta = ttk.Treeview(app, columns=(1, 2, 3, 4), show="headings", height="8", padding=(10, 10, 10, 10))
   tree_otra_tipo_venta.column(1, anchor=CENTER, stretch=NO, width=70)
   tree_otra_tipo_venta.heading(1, text = 'SKU')
   tree_otra_tipo_venta.column(2, anchor=CENTER, stretch=NO, width=180)
