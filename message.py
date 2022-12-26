@@ -25,14 +25,16 @@ def messageBox(dict_datos_modificados, dict_otro_tipo):
   messageboxText = "En las siguientes columnas no se encontró la información en los excel de Colaboraciones. Estos fueron rellanaron con los siguientes datos: Para el volumen de contenedor promedio fue con 24.000 ton, para el porcentaje de utilización con un 35%. \n\n*En el excel fueron marcadas con rojo para mayor detalle"
   text = Text(app, bg = '#ffffff', bd = 0, borderwidth=0, highlightthickness=0, height=5, width=70, padx = 15, pady = 5)
   text.insert(INSERT, messageboxText)
-  text.config(state=DISABLED, font=("Calibrí", 12))
+  text.config(state=DISABLED, font=("Calibrí", 11))
   text.grid(column = 0, row = 2, columnspan = 12)
 
   # Table
-  tree = ttk.Treeview(app, columns=(1, 2, 3, 4, 5), show="headings", height="8", padding = (10, 10, 10, 10))
-  # vsb = Scrollbar(app, orient="vertical", command=tree.yview)
-  # vsb.place(x=30+200+2, y=95, height=200+20)
-  # tree.configure(yscrollcommand=vsb.set)
+  tree = ttk.Treeview(app, columns=(1, 2, 3, 4, 5), show="headings", height="8", padding=(8,8,8,8))
+  tree.grid(column = 0, row = 3, columnspan = 12)
+
+  scrollbar = ttk.Scrollbar(app, orient=tk.VERTICAL, command=tree.yview)
+  tree.config(yscroll = scrollbar.set)
+  scrollbar.grid(column=12, row=3, sticky='ns')
 
   tree.column(1, anchor=CENTER, stretch=NO, width=70)
   tree.heading(1, text = 'Fila')
@@ -49,16 +51,15 @@ def messageBox(dict_datos_modificados, dict_otro_tipo):
   for key, value in dict_datos_modificados.items():
     tree.insert('', 'end', values = (key, value['llave'], value['name'], value['original_value'], value['change_value']))
     row += 1
-  tree.grid(column = 0, row = 3, columnspan = 12)
 
   # Arbol de datos de otro tipo de venta
   messageboxText2 = f"Además, se eliminaron los siguientes pedidos produccidos que no corresponden al tipo de venta {seleccion_tipo_venta}."
   text = Text(app, bg = '#ffffff', bd = 0, borderwidth=0, highlightthickness=0, height=2, width=70, padx = 5, pady = 5)
   text.insert(INSERT, messageboxText2)
-  text.config(state=DISABLED, font="Calibrí")
+  text.config(state=DISABLED, font=("Calibrí", 11))
   text.grid(column = 0, row = 4, columnspan = 12)
 
-  tree_otra_tipo_venta = ttk.Treeview(app, columns=(1, 2, 3, 4), show="headings", height="8", padding=(10, 10, 10, 10))
+  tree_otra_tipo_venta = ttk.Treeview(app, columns=(1, 2, 3, 4), show="headings", height="8", padding=(8, 8, 8, 8))
   tree_otra_tipo_venta.column(1, anchor=CENTER, stretch=NO, width=70)
   tree_otra_tipo_venta.heading(1, text = 'SKU')
   tree_otra_tipo_venta.column(2, anchor=CENTER, stretch=NO, width=180)
@@ -71,6 +72,10 @@ def messageBox(dict_datos_modificados, dict_otro_tipo):
   for key, value in dict_otro_tipo.items():
     tree_otra_tipo_venta.insert('', 'end', values = (value['sku'], value['Oficina'], value['Descripción'], value['Producción mes']))
   tree_otra_tipo_venta.grid(column = 0, row = 5, columnspan = 12)
+
+  scrollbar2 = ttk.Scrollbar(app, orient=tk.VERTICAL, command=tree_otra_tipo_venta.yview)
+  tree_otra_tipo_venta.config(yscroll = scrollbar2.set)
+  scrollbar2.grid(column=12, row=5, sticky='ns')
 
   # Exit button
   boton = Button(app, text = "Salir", command = app.destroy, width=8, highlightbackground='#ffffff')
