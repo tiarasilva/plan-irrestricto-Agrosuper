@@ -1,12 +1,7 @@
-from openpyxl import Workbook, load_workbook
 from openpyxl.utils import get_column_letter
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.styles.numbers import FORMAT_PERCENTAGE, BUILTIN_FORMATS
 from constants import *
-
-# plan_irrestricto = load_workbook(filename)
-# ws = plan_irrestricto.active
-# max_row = ws.max_row
 
 ## 2.1 Para los estilos
 def run_styles(ws, row_max, col_max):
@@ -74,6 +69,3 @@ def run_styles(ws, row_max, col_max):
     ws[f'AC{i}'].number_format = BUILTIN_FORMATS[3]
     ws[f'AD{i}'].number_format = BUILTIN_FORMATS[3]
     ws[f'AE{i}'].number_format = BUILTIN_FORMATS[3]
-
-
-# plan_irrestricto.close()

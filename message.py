@@ -4,12 +4,12 @@ from tkinter import ttk, messagebox
 import tkinter as tk
 from PIL import Image, ImageTk
 
-def messageBox(dict_datos_modificados, dict_otro_tipo):
+def messageBox(dict_datos_modificados, dict_otro_tipo, path_img):
   app = Tk()
   app.configure(bg='#ffffff')
 
   # Info Image
-  information_image = Image.open("Notice.png")
+  information_image = Image.open(path_img)
   information_image = information_image.resize((50, 50))
   information_image = ImageTk.PhotoImage(information_image)
   logo_label = tk.Label(image = information_image, borderwidth=0, bg = 'white')
@@ -22,14 +22,14 @@ def messageBox(dict_datos_modificados, dict_otro_tipo):
   instructions.grid(column = 1, row = 1)
 
   # Description
-  messageboxText = "En las siguientes columnas no se encontró la información en los excel de Colaboraciones. Estos fueron rellanaron con los siguientes datos: Para el volumen de contenedor promedio fue con 24.000 ton, para el porcentaje de utilización con un 35%. \n\n*En el excel fueron marcadas con rojo para mayor detalle"
-  text = Text(app, bg = '#ffffff', bd = 0, borderwidth=0, highlightthickness=0, height=5, width=70, padx = 15, pady = 5)
+  messageboxText = "En las siguientes columnas no se encontró la información en los excel de Colaboraciones. Estos fueron rellanaron con los siguientes datos: Para el volumen de contenedor promedio fue con 24.000 ton, para el porcentaje de utilización con un 35%. Cabe destacar, que se agregaron las ventas sin producción, y los stocks sin producción ni ventas asignadas. \n\n*En el excel fueron marcadas con rojo para mayor detalle"
+  text = Text(app, bg = '#ffffff', bd = 0, borderwidth=0, highlightthickness=0, height=7, width=70, padx = 10, pady = 2)
   text.insert(INSERT, messageboxText)
-  text.config(state=DISABLED, font=("Calibrí", 11))
+  text.config(state=DISABLED, font=("Calibrí", 13))
   text.grid(column = 0, row = 2, columnspan = 12)
 
   # Table
-  tree = ttk.Treeview(app, columns=(1, 2, 3, 4, 5), show="headings", height="8", padding=(8,8,8,8))
+  tree = ttk.Treeview(app, columns=(1, 2, 3, 4, 5), show="headings", height="7", padding=(8,0,0,8))
   tree.grid(column = 0, row = 3, columnspan = 12)
 
   scrollbar = ttk.Scrollbar(app, orient=tk.VERTICAL, command=tree.yview)
@@ -56,10 +56,10 @@ def messageBox(dict_datos_modificados, dict_otro_tipo):
   messageboxText2 = f"Además, se eliminaron los siguientes pedidos produccidos que no corresponden al tipo de venta {seleccion_tipo_venta}."
   text = Text(app, bg = '#ffffff', bd = 0, borderwidth=0, highlightthickness=0, height=2, width=70, padx = 5, pady = 5)
   text.insert(INSERT, messageboxText2)
-  text.config(state=DISABLED, font=("Calibrí", 11))
+  text.config(state=DISABLED, font=("Calibrí", 13))
   text.grid(column = 0, row = 4, columnspan = 12)
 
-  tree_otra_tipo_venta = ttk.Treeview(app, columns=(1, 2, 3, 4), show="headings", height="8", padding=(8, 8, 8, 8))
+  tree_otra_tipo_venta = ttk.Treeview(app, columns=(1, 2, 3, 4), show="headings", height="7", padding=(8, 8, 8, 8))
   tree_otra_tipo_venta.column(1, anchor=CENTER, stretch=NO, width=70)
   tree_otra_tipo_venta.heading(1, text = 'SKU')
   tree_otra_tipo_venta.column(2, anchor=CENTER, stretch=NO, width=180)

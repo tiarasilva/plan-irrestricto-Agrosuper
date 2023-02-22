@@ -1,32 +1,35 @@
 #-------------------------- CONSTANTES ---------------------------#
-grey = 'aaabac'
-lightBlue = '8ba9d7'
-orange = 'c14811'
-blue = '22305a'
-white = 'ffffff'
-red = 'FF0000'
+year = 2022
 
 seleccion_tipo_venta = "Venta Directa" # Venta Directa o Venta Local
 
-filename = 'Plan irrestricto.xlsx'
+filename = 'Plan de ventas irrestricto.xlsx'
 filename_asignacion = 'Colaboraciones plan de ventas/Asignación venta.xlsx'
 filename_util = 'Colaboraciones plan de ventas/Fechas de zarpe - Logística.xlsx'
-filename_delay = 'Colaboraciones plan de ventas/DELAY.xlsx'
-# filename_por_despachar = 'Colaboraciones plan de ventas/Pedidos por despachar.xlsx'
 filename_por_despachar = 'Colaboraciones plan de ventas/Proyeccion Plan de Venta.xlsx'
 filename_stock = 'Colaboraciones plan de ventas/Pedidos Stock.xlsx'
 filename_por_producir = 'Colaboraciones plan de ventas/Producción.xlsx'
 filename_vol_cont = 'Colaboraciones plan de ventas/Volumen por contenedor.xlsx'
 filename_puerto = 'Colaboraciones plan de ventas/Pedidos Planta-Puerto-Embarcado.xlsx'
 filename_maestro_materiales = 'Colaboraciones plan de ventas/Maestro de materiales.xlsx'
-filename_parametros = 'Colaboraciones plan de ventas/parametros.xlsx'
+filename_parametros = 'Colaboraciones plan de ventas/Parametros.xlsx'
+path_img = "Img/Notice.png"
 
 PO = 'Pollo'
 PV = 'Pavo'
 GO = 'Cerdo'
 GA = 'Pollo'                                            # o Gallina
 
-oficina_plan_irrestricto = 'Agrosuper Shanghai'
+grey = 'aaabac'
+lightBlue = '8ba9d7'
+lightPale = 'FFDFCC'
+lightOrange = 'f8c9ad'
+orange = 'c14811'
+blue = '22305a'
+white = 'ffffff'
+red = 'FF0000'
+yellow = 'ffeb9c'
+green = 'a9d08d'
 
 tamano = {
   'Llave': 23,
@@ -61,4 +64,58 @@ tamano = {
   'Plan Irrestricto': 14,
   'Plan Ajustado': 14,
   'Motivo Ajuste': 30
+}
+
+month_translate_CL_EN = {
+  'enero': 'january',
+  'febrero': 'february',
+  'marzo': 'march',
+  'abril': 'april', 
+  'mayo': 'may',
+  'junio': 'june',
+  'julio': 'july', 
+  'agosto': 'august',
+  'septiembre': 'september',
+  'octubre': 'october',
+  'noviembre': 'november',
+  'diciembre': 'december'
+}
+
+month_translate_EN_CL = {
+  'January': 'Enero',
+  'February': 'Febrero',
+  'March': 'Marzo',
+  'April': 'Abril', 
+  'May': 'Mayo',
+  'June': 'Junio',
+  'July': 'Julio', 
+  'August': 'Agosto',
+  'September': 'Septiembre',
+  'October': 'Octubre',
+  'November': 'Noviembre',
+  'December': 'Diciembre'
+}
+
+week_translate_EN_CL = {
+  'Monday': 'Lunes',
+  'Tuesday': 'Martes',
+  'Wednesday': 'Miércoles',
+  'Thursday': 'Jueves',
+  'Friday': 'Viernes',
+  'Saturday': 'Sábado',
+  'Sunday': 'Domingo'
+}
+month_number = {
+  'enero': 1,
+  'febrero': 2,
+  'marzo': 3,
+  'abril': 4, 
+  'mayo': 5,
+  'junio': 6,
+  'julio': 7, 
+  'agosto': 8,
+  'septiembre': 9,
+  'octubre': 10,
+  'noviembre': 11,
+  'diciembre': 12   
 }
