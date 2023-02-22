@@ -7,5 +7,8 @@ pyinstaller --collect-submodules=openpyxl --collect-submodules=holidays --additi
 # Run spec file on MAC ios
 pyinstaller generar_plan_irrestricto.spec
 
+# Run spec file on WINDOWS
+py -m PyInstaller generar_plan_irrestricto.spec
+
 ## Install holidays library
 py -m pip install holidays

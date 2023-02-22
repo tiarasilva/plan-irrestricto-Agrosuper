@@ -13,7 +13,7 @@ a = Analysis(
     ['generar_plan_irrestricto.py'],
     pathex=[],
     binaries=[],
-    datas=[('Colaboraciones plan de ventas/Asignación venta.xlsx', 'Colaboraciones plan de ventas'), ('Colaboraciones plan de ventas/Fechas de zarpe - Logística.xlsx', 'Colaboraciones plan de ventas'), ('Colaboraciones plan de ventas/Maestro de materiales.xlsx', 'Colaboraciones plan de ventas'), ('Colaboraciones plan de ventas/Parametros.xlsx', 'Colaboraciones plan de ventas'), ('Colaboraciones plan de ventas/Pedidos Planta-Puerto-Embarcado.xlsx', 'Colaboraciones plan de ventas'), ('Colaboraciones plan de ventas/Pedidos Stock.xlsx', 'Colaboraciones plan de ventas'), ('Colaboraciones plan de ventas/Producción.xlsx', 'Colaboraciones plan de ventas'), ('Colaboraciones plan de ventas/Proyeccion Plan de Venta.xlsx', 'Colaboraciones plan de ventas'), ('Colaboraciones plan de ventas/Volumen por contenedor.xlsx', 'Colaboraciones plan de ventas'), ('Img/Notice.png', 'Img')],
+    datas=[('Colaboraciones plan de ventas/Asignación venta.xlsx', 'Colaboraciones plan de ventas'), ('Colaboraciones plan de ventas/Fechas de zarpe - Logística.xlsx', 'Colaboraciones plan de ventas'), ('Colaboraciones plan de ventas/Maestro de materiales.xlsx', 'Colaboraciones plan de ventas'), ('Colaboraciones plan de ventas/Parametros.xlsx', 'Colaboraciones plan de ventas'), ('Colaboraciones plan de ventas/Pedidos Planta-Puerto-Embarcado.xlsx', 'Colaboraciones plan de ventas'), ('Colaboraciones plan de ventas/Pedidos Stock.xlsx', 'Colaboraciones plan de ventas'), ('Colaboraciones plan de ventas/Producción.xlsx', 'Colaboraciones plan de ventas'), ('Colaboraciones plan de ventas/Proyeccion Plan de Venta.xlsx', 'Colaboraciones plan de ventas'), ('Colaboraciones plan de ventas/Volumen por contenedor.xlsx', 'Colaboraciones plan de ventas'), ('Img/Notice.png', 'Img')],
     hiddenimports=hiddenimports,
     hookspath=['.'],
     hooksconfig={},
@@ -46,5 +46,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['Img/ico.icns:Img'],
+    icon=['Img/ico.ico'],
 )
