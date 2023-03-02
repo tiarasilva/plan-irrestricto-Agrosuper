@@ -203,8 +203,8 @@ def fechas_zarpe(dict_tipo_venta, filename_parametros, filename_util):
             office_zarpe += ', ' + str(of)
           ws_datos_faena.cell(row = i, column = 1).value = f'Zarpe: {office_zarpe}'
           ws_datos_faena.cell(row = i, column = 8).value = f'Zarpe: {office_zarpe}'
-          ws_datos_faena[f'A{i}'].fill = PatternFill("solid", fgColor=green)
-          ws_datos_faena[f'H{i}'].fill = PatternFill("solid", fgColor=green)
+          ws_datos_faena[f'A{i}'].fill = PatternFill("solid", fgColor=lightGreen)
+          ws_datos_faena[f'H{i}'].fill = PatternFill("solid", fgColor=lightGreen)
           ws_datos_faena[f'A{i}'].alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
           ws_datos_faena[f'H{i}'].alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
           ws_datos_faena[f'A{i}'].border = Border(top=thin, left=thin, right=thin, bottom=thin)
