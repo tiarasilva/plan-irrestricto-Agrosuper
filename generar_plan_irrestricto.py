@@ -279,7 +279,7 @@ plan_irrestricto.save(filename)
 fechas_zarpe(dict_tipo_venta, filename_parametros, filename_util)
 create_weighing_production(dict_tipo_venta, filename_util, month_of_projection, selected_year)
 
-util_prod = load_workbook(filename_util, data_only=True, read_only=True)
+util_prod = load_workbook(filename_util, data_only=True)
 ws_util = util_prod['Ponderación']
 util_dicc = {}
 year = ''
