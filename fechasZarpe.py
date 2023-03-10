@@ -268,6 +268,7 @@ def fechas_zarpe(dict_tipo_venta, filename_parametros, filename_util):
         ws_datos_faena[f'D{i}'].value = day
         ws_datos_faena[f'J{i}'].value = week_translate_EN_CL[week_EN]
         ws_datos_faena[f'K{i}'].value = day
+  wb_fecha_zarpe.save(filename_util)
 
   ws_datos_faena.column_dimensions['A'].width = 25
   ws_datos_faena.column_dimensions['B'].width = 10
