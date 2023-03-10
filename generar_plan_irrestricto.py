@@ -269,7 +269,7 @@ for key, value in dict_venta_no_asignadas.items():
       elif 'PO' in value['description']:
         ws_irrestricto[f'B{j}'].value = PO                              
       elif 'GO' in value['description']:
-        _ws_irrestricto[f'B{j}'].value = GO    
+        ws_irrestricto[f'B{j}'].value = GO    
       elif 'GA' in value['description']:
         ws_irrestricto[f'B{j}'].value = GA
       else:
