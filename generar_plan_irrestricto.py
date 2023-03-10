@@ -51,8 +51,8 @@ ws.append(['Llave',
            'Descripción',
            'Nivel Jer. 2',
            'Nivel Jer. 3',
-           'RV Producción mes n+1',
-           'RV Venta mes n+1',
+           'RV Producción mes N + 1',
+           'RV Venta mes N + 1',
            '% Uti. producción',
            'Producción disponible',
            'Stock al día',
@@ -100,14 +100,15 @@ for row in ws_maestro_materiales.iter_rows(min_row = 2, max_row = max_maestro, v
   estado = row[6]
   mercado = row[7]
   vida_util = row[8]
-  dict_materiales[material] = {'descripcion': descripcion, 
-                               'sector': sector,
-                               'nivel_2': nivel_2, 
-                               'nivel_3': nivel_3, 
-                               'estado': estado,
-                               'mercado': mercado,
-                               'vida_util': vida_util
-                               }
+  dict_materiales[material] = {
+    'descripcion': descripcion, 
+    'sector': sector,
+    'nivel_2': nivel_2, 
+    'nivel_3': nivel_3, 
+    'estado': estado,
+    'mercado': mercado,
+    'vida_util': vida_util
+  }
 wb_maestro_materiales.close()
 
 # 3.2. Parametros
@@ -297,9 +298,10 @@ for row in ws_util.iter_rows(min_row = 2, max_row = ws_util.max_row, values_only
     break
 
   sector_oficina = row[2].lower()
-  porcentaje = row[5]
+  porcentaje = row[6]
   EN_month = month_translate_CL_EN[month.lower()]
   selected_month = month_translate_CL_EN[month_of_projection.lower()]
+  print(year, month, porcentaje)
 
   if EN_month == selected_month.lower() and int(year) == int(selected_year):
     util_dicc[sector_oficina] = porcentaje
@@ -589,6 +591,32 @@ for i, row in enumerate(ws_irrestricto.iter_rows(min_row = 2, max_row = ws_irres
     # facturacion atraso + facturación venta nueva + facturación stock + En puerto a facturar
     ws_irrestricto.cell(row = i, column = 31).value = f'=T{i}+X{i}+AB{i}+AC{i}'
 
+  # STYLES
+  thin = Side(border_style="thin", color=white)
+  line_blue = Side(border_style="thin", color=blue)
+  
+  ws_irrestricto[f'A{i}'].font = Font(bold=False, color=blue)
+  ws_irrestricto[f'B{i}'].font = Font(bold=False, color=blue)
+  ws_irrestricto[f'C{i}'].font = Font(bold=False, color=blue)
+  ws_irrestricto[f'D{i}'].font = Font(bold=False, color=blue)
+  ws_irrestricto[f'E{i}'].font = Font(bold=False, color=blue)
+  ws_irrestricto[f'F{i}'].font = Font(bold=False, color=blue)
+  ws_irrestricto[f'G{i}'].font = Font(bold=False, color=blue)
+  ws_irrestricto[f'A{i}'].fill = PatternFill("solid", fgColor=lightlightBlue)
+  ws_irrestricto[f'B{i}'].fill = PatternFill("solid", fgColor=lightlightBlue)
+  ws_irrestricto[f'C{i}'].fill = PatternFill("solid", fgColor=lightlightBlue)
+  ws_irrestricto[f'D{i}'].fill = PatternFill("solid", fgColor=lightlightBlue)
+  ws_irrestricto[f'E{i}'].fill = PatternFill("solid", fgColor=lightlightBlue)
+  ws_irrestricto[f'F{i}'].fill = PatternFill("solid", fgColor=lightlightBlue)
+  ws_irrestricto[f'G{i}'].fill = PatternFill("solid", fgColor=lightlightBlue)
+  ws_irrestricto[f'A{i}'].border = Border(top=thin, left=thin, right=thin, bottom=thin)
+  ws_irrestricto[f'B{i}'].border = Border(top=thin, left=thin, right=thin, bottom=thin)
+  ws_irrestricto[f'C{i}'].border = Border(top=thin, left=thin, right=thin, bottom=thin)
+  ws_irrestricto[f'D{i}'].border = Border(top=thin, left=thin, right=thin, bottom=thin)
+  ws_irrestricto[f'E{i}'].border = Border(top=thin, left=thin, right=thin, bottom=thin)
+  ws_irrestricto[f'F{i}'].border = Border(top=thin, left=thin, right=thin, bottom=thin)
+  ws_irrestricto[f'G{i}'].border = Border(top=thin, left=thin, right=thin, bottom=thin)
+  
 # Fila suma total
 n_max = ws_irrestricto.max_row
 ws_irrestricto.append({7: 'Total', 

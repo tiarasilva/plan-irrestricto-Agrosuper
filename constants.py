@@ -20,16 +20,21 @@ PV = 'Pavo'
 GO = 'Cerdo'
 GA = 'Pollo'                                            # o Gallina
 
+# Definición de colores
 grey = 'aaabac'
+lightlightBlue = 'dbe5f1'
 lightBlue = '8ba9d7'
 lightPale = 'FFDFCC'
 lightOrange = 'f8c9ad'
 orange = 'c14811'
-blue = '22305a'
+blue = '2f5496'
 white = 'ffffff'
+lightRed = 'fec7cd'
 red = 'FF0000'
+darkRed = 'b0292f'
 yellow = 'ffeb9c'
-green = 'a9d08d'
+lightGreen = 'c6eecd'
+green = '006100'
 
 tamano = {
   'Llave': 23,
@@ -39,8 +44,8 @@ tamano = {
   'Descripción': 27,
   'Nivel Jer. 2': 15,
   'Nivel Jer. 3': 17,
-  'RV Producción mes n+1': 14,
-  'RV Venta mes n+1': 14,
+  'RV Producción mes N + 1': 14,
+  'RV Venta mes N + 1': 14,
   '% Uti. producción': 7,
   'Producción disponible': 14,
   'Stock al día': 14,

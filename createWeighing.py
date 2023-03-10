@@ -14,7 +14,7 @@ def create_weighing_production(dict_tipo_venta, filename_util, selected_month, s
   if 'Ponderación' in wb_fecha_zarpe.sheetnames:
     del wb_fecha_zarpe['Ponderación']
   ws_ponderacion = wb_fecha_zarpe.create_sheet('Ponderación')
-  ws_ponderacion.append(['Año', 'Mes', 'Llave', 'Sector', 'Oficina', 'Ponderación', 'Fechas'])
+  ws_ponderacion.append(['Año', 'Mes', 'Llave', 'Sector', 'Oficina', 'Corte de producción', 'Ponderación', 'Fechas'])
 
   # ------ Parametros ------
   number_selected_month = month_number[selected_month.lower()]
@@ -138,13 +138,16 @@ def create_weighing_production(dict_tipo_venta, filename_util, selected_month, s
     pon_1 = dict_sector_ponderacion[first_key][second_key]
     pon_tot = dict_ponderacion_total_mensual[first_key]
 
-    ws_ponderacion[f'F{k}'].value = pon_1 / pon_tot
-    ws_ponderacion[f'F{k}'].number_format = FORMAT_PERCENTAGE
+    ws_ponderacion[f'F{k}'].value = pon_1
+    ws_ponderacion[f'F{k}'].alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+
+    ws_ponderacion[f'G{k}'].value = pon_1 / pon_tot
+    ws_ponderacion[f'G{k}'].number_format = FORMAT_PERCENTAGE
   
   ultimate_max = ws_ponderacion.max_row + 1
-  ws_ponderacion[f'D{ultimate_max}'].value = 'Ponderación promedio' 
-  ws_ponderacion[f'F{ultimate_max}'] = f'=AVERAGE(F2:F{ultimate_max - 1})'
-  ws_ponderacion[f'F{ultimate_max}'].number_format = FORMAT_PERCENTAGE
+  ws_ponderacion[f'F{ultimate_max}'].value = 'Ponderación promedio' 
+  ws_ponderacion[f'G{ultimate_max}'] = f'=AVERAGE(G2:G{ultimate_max - 1})'
+  ws_ponderacion[f'G{ultimate_max}'].number_format = FORMAT_PERCENTAGE
 
   for i in range(1, 8):
     ws_ponderacion[f'{get_column_letter(i)}{ultimate_max}'].fill = PatternFill("solid", fgColor=blue)
@@ -152,7 +155,7 @@ def create_weighing_production(dict_tipo_venta, filename_util, selected_month, s
   
 
   # ------ Estilos ------
-  for i in range(1, 8):
+  for i in range(1, 9):
     thin = Side(border_style="thin", color=white)
     ws_ponderacion[f'{get_column_letter(i)}1'].font = Font(bold=True, color=white)  # tomamos la primera fila
     ws_ponderacion[f'{get_column_letter(i)}1'].alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
@@ -163,6 +166,7 @@ def create_weighing_production(dict_tipo_venta, filename_util, selected_month, s
   ws_ponderacion.column_dimensions['C'].width = 25    # Llave
   ws_ponderacion.column_dimensions['D'].width = 12    # Sector
   ws_ponderacion.column_dimensions['E'].width = 20    # Oficina
+  ws_ponderacion.column_dimensions['F'].width = 20
 
   # Merge cells
   ws_ponderacion.merge_cells('A2:A21')
