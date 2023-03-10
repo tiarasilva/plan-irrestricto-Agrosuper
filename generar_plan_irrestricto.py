@@ -296,7 +296,7 @@ for row in ws_util.iter_rows(min_row = 2, max_row = ws_util.max_row, values_only
 
   if row[2] is None:
     break
-
+  
   sector_oficina = row[2].lower()
   porcentaje = row[6]
   EN_month = month_translate_CL_EN[month.lower()]
@@ -408,6 +408,7 @@ for row in range(2, ws_irrestricto.max_row + 1):
     ws_irrestricto[f'L{row}'].value = 0 
     ws_irrestricto[f'L{row}'].fill = PatternFill("solid", fgColor=red)
     dict_datos_modificados[row] = {'llave': llave_actual, 'column': 12, 'name': 'Stock al día', 'original_value': 'None', 'change_value': 0 }
+plan_irrestricto.save(filename)
 
 # ------ Stock sin ventas ni producción ------
 j = ws_irrestricto.max_row
