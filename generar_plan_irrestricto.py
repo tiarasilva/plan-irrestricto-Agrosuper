@@ -301,7 +301,6 @@ for row in ws_util.iter_rows(min_row = 2, max_row = ws_util.max_row, values_only
   porcentaje = row[6]
   EN_month = month_translate_CL_EN[month.lower()]
   selected_month = month_translate_CL_EN[month_of_projection.lower()]
-  print(year, month, porcentaje)
 
   if EN_month == selected_month.lower() and int(year) == int(selected_year):
     util_dicc[sector_oficina] = porcentaje
