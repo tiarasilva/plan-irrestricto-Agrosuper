@@ -275,6 +275,7 @@ for key, value in dict_venta_no_asignadas.items():
         ws_irrestricto[f'B{j}'].value = 'Elaborado' # Sector = 'Elaborado'
 plan_irrestricto.save(filename)
 
+
 # Fechas de zarpe - Logistica -> % Util. produccion
 fechas_zarpe(dict_tipo_venta, filename_parametros, filename_util)
 create_weighing_production(dict_tipo_venta, filename_util, month_of_projection, selected_year)
